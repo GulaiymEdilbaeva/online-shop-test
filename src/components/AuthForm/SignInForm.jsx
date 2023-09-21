@@ -1,10 +1,10 @@
-import { FormWrapper } from "../../layout/FormWrapper";
 import { useFormik } from "formik";
 import { validationAuthSignIn } from "../../helpers/validate/authValidate";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/slices/authSlice";
 import { Input } from "../../UI/Input";
 import { Button } from "../../UI/Button";
+import { FormWrapper } from "../../layout/FormWrapper";
 
 export const SignInForm = () => {
   const { isLoading } = useSelector((state) => state.auth);

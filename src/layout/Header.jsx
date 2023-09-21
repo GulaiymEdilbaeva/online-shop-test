@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import styled from "@emotion/styled";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as Login } from "../assets/login.svg";
 import { ReactComponent as Favorite } from "../assets/favorite.svg";
@@ -44,3 +44,4 @@ const OptionsBlock = styled("div")`
   flex-direction: column;
   align-items: center;
 `;
+export { ReactComponent as Logo } from "../assets/logo.svg";

@@ -1,11 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { MainLayout } from "../pages/MainLayout";
+
 import { SignUpForm } from "../components/AuthForm/SignUpForm";
 import { SignInForm } from "../components/AuthForm/SignInForm";
-import { PrivateAuthRoute } from "./PrivateAuthRoute";
-import { AdminPage } from "../pages/AdminPage";
+import { PrivateAuthRoute } from "./Private/PrivateAuthRoute";
+
+import { AdminRoutes } from "./AdminRoutes";
+import { MainLayout } from "../layout/RouteWrapper/MainLayout";
 
 export const AppRoutes = ({ isAuthorized, role }) => {
+  const pathsByRole = {
+    ADMIN: "/admin",
+    CLIENT: "/client",
+  };
   console.log(role);
   return (
     <Routes>
@@ -16,7 +22,9 @@ export const AppRoutes = ({ isAuthorized, role }) => {
           element={
             <PrivateAuthRoute
               RouteComponent={<SignUpForm />}
-              fallbackPath="/admin"
+              fallbackPath={
+                role === "ADMIN" ? pathsByRole.ADMIN : pathsByRole.CLIENT
+              }
               isAuthorized={!isAuthorized}
             />
           }
@@ -26,22 +34,24 @@ export const AppRoutes = ({ isAuthorized, role }) => {
           element={
             <PrivateAuthRoute
               RouteComponent={<SignInForm />}
-              fallbackPath="/admin"
+              fallbackPath={pathsByRole[role]}
               isAuthorized={!isAuthorized}
             />
           }
         />
       </Route>
       <Route
-        path="/admin"
+        path="/admin/*"
         element={
           <PrivateAuthRoute
-            RouteComponent={<AdminPage />}
+            RouteComponent={<AdminRoutes role={role} />}
             fallbackPath={"/sign-in"}
             isAuthorized={isAuthorized}
           />
         }
       />
+      <Route path="/client/*" element={<h1>Client Page</h1>} />
+      <Route path="*" element={<h1>Page not found</h1>} />
     </Routes>
   );
 };
