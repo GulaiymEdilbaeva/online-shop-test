@@ -1,8 +1,8 @@
 import { Button as MuiButton, styled } from "@mui/material";
 
-export const Button = ({ children, onClick, ...rest }) => {
+export const Button = ({ children, onClick, disabled, loading, ...rest }) => {
   return (
-    <StyledButton onClick={onClick} {...rest}>
+    <StyledButton disabled={disabled} onClick={onClick} {...rest}>
       {children}
     </StyledButton>
   );
