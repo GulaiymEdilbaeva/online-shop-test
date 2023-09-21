@@ -1,11 +1,11 @@
 import * as yup from "yup";
 
 const validationAuthSignUp = yup.object().shape({
-  email: yup.string().required("Почта обязателное поле!"),
-  name: yup.string().required("Имя обязателное поле!"),
+  email: yup.string().required("Почта обязательное поле!"),
+  name: yup.string().required("Имя обязательное поле!"),
   password: yup
     .string()
-    .min(5, "Пароль должен быть больше 5 симбоволов!")
+    .min(5, "Пароль должен быть больше 5 символов!")
     .max(100)
     .required("Пароль обязательное поле!"),
 
@@ -15,10 +15,10 @@ const validationAuthSignUp = yup.object().shape({
 });
 
 const validationAuthSignIn = yup.object().shape({
-  email: yup.string().required("Почта обязателное поле!"),
+  email: yup.string().required("Почта обязательное поле!"),
   password: yup
     .string()
-    .min(5, "Пароль должен быть больше 5 симбоволов!")
+    .min(5, "Пароль должен быть больше 5 символов!")
     .max(100)
     .required("Пароль обязательное поле!"),
 });

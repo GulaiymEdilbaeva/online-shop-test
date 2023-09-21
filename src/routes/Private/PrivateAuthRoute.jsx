@@ -1,12 +1,13 @@
 import { Navigate } from "react-router-dom";
 
 export const PrivateAuthRoute = ({
+  RouteComponent,
   isAuthorized,
   fallbackPath,
-  RouteComponents,
 }) => {
   if (isAuthorized) {
-    return RouteComponents;
+    return RouteComponent;
   }
+
   return <Navigate to={fallbackPath} replace />;
 };

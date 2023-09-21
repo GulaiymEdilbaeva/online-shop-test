@@ -1,20 +1,21 @@
-import React from "react";
-import { Header } from "../layout/Header";
-import { styled } from "@mui/material";
+import styled from "@emotion/styled";
+import { Header } from "../Header";
+import { Footer } from "../Footer";
 import { Outlet } from "react-router-dom";
-import { Footer } from "../layout/Footer";
+
 export const MainLayout = () => {
   return (
     <>
-      <Contenet>
+      <Content>
         <Header />
         <Outlet />
-      </Contenet>
+      </Content>
       <Footer />
     </>
   );
 };
-const Contenet = styled("div")`
+
+const Content = styled("div")`
   margin-top: 20px;
   margin-right: 120px;
   margin-left: 120px;
