@@ -34,12 +34,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLoading: false,
-    isAuthorizated: false,
+    isAuthourizated: false,
     data: {},
   },
   reducers: {
     autoLogin(state, { payload }) {
-      (state.isAuthorizated = true), (state.data = payload);
+      (state.isAuthourizated = true), (state.data = payload);
     },
   },
   extraReducers: (builder) =>
@@ -49,7 +49,7 @@ const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state) => {
         state.isLoading = false;
-        state.isAuthorizated = true;
+        state.isAuthourizated = true;
         // if(typeof action.payload !== 'string'){
 
         // }
@@ -63,7 +63,7 @@ const authSlice = createSlice({
       })
       .addCase(signIn.fulfilled, (state) => {
         state.isLoading = false;
-        state.isAuthorizated = true;
+        state.isAuthourizated = true;
         // if(typeof action.payload !== 'string'){
 
         // }

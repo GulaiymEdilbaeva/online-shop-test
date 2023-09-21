@@ -1,20 +1,19 @@
 import React from "react";
-import { CircularProgress, Typography, styled } from "@mui/material";
+import { Box, CircularProgress, Typography, styled } from "@mui/material";
 import { Input } from "../../UI/Input";
 import { Button } from "../../UI/Button";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../redux/slices/authSlice";
 import { validationAuthSignUp } from "../../helpers/validate/authValidate";
-import { showErrorsSignUp } from "../../helpers/authErrors";
 import { FormWrapper } from "../../layout/FormWrapper";
 import { Link } from "react-router-dom";
 
 export const SignUpForm = () => {
-  const { data, isLoading, isAuthorizated } = useSelector(
-    (state) => state.auth
-  );
-  console.log(data, isLoading, isAuthorizated);
+  const { isLoading } = useSelector((state) => state.auth);
+
+  const [checkPassword, setCheckPassword] = useState(false);
+
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
@@ -26,12 +25,13 @@ export const SignUpForm = () => {
           password: values.password,
         })
       );
+      setCheckPassword(false);
     } else {
-      alert("!!!!");
+      setCheckPassword(true);
     }
   };
 
-  const { values, handleChange, handleSubmit } = useFormik({
+  const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues: {
       email: "",
       name: "",
@@ -46,82 +46,82 @@ export const SignUpForm = () => {
   return (
     <FormWrapper onSubmit={handleSubmit}>
       <h2>Регистрация</h2>
-      <Input
-        fullWidth
-        label="Email"
-        type="email"
-        value={values.email}
-        name="email"
-        onChange={handleChange}
-      />
-      <Input
-        fullWidth
-        label="Name"
-        type="text"
-        value={values.name}
-        name="name"
-        onChange={handleChange}
-      />
-      <Input
-        fullWidth
-        label="Password"
-        type="password"
-        value={values.password}
-        name="password"
-        onChange={handleChange}
-      />
-      <Input
-        fullWidth
-        label="Confirm password"
-        type="password"
-        value={values.confirmPassword}
-        name="confirmPassword"
-        onChange={handleChange}
-      />
-      {/* {showErrorsSignUp(errors) && (
-          <Typography>{showErrorsSignUp(errors)}</Typography>
-        )} */}
-      <Button type="submit">
-        {isLoading ? (
-          <CircularProgress size={"1.5rem"} />
-        ) : (
-          "Зарегистрироваться"
+
+      <BoxInput>
+        <Input
+          fullWidth
+          label="Почта"
+          type="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+        />
+        {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+      </BoxInput>
+
+      <BoxInput>
+        <Input
+          fullWidth
+          label="Имя"
+          type="text"
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+        />
+        {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+      </BoxInput>
+
+      <BoxInput>
+        <Input
+          fullWidth
+          label="Пароль"
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+        />
+        {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+      </BoxInput>
+
+      <BoxInput>
+        <Input
+          fullWidth
+          label="Подвердите пароль"
+          type="password"
+          name="confirmPassword"
+          value={values.confirmPassword}
+          onChange={handleChange}
+        />
+
+        {errors.confirmPassword && (
+          <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
         )}
+
+        {checkPassword ? <ErrorMessage>Пароли не совпадают</ErrorMessage> : ""}
+      </BoxInput>
+
+      <Button type="submit">
+        {isLoading ? <CircularProgress size="1.5rem" /> : "Зарегистрироваться"}
       </Button>
+
       <Paragraph>
-        Уже зарегистрированы? <Link to="/sign-in" />
-        <span>Войти</span>{" "}
+        Уже зарегистрированы? <Link to={"/sign-in"}>Войти</Link>
       </Paragraph>
     </FormWrapper>
   );
 };
 
-// const ErrorsStyle= styled(Typography)(()=>({
+const BoxInput = styled(Box)`
+  width: 100%;
+`;
 
-// }))
-// const Wrapper = styled("div")`
-//   margin-bottom: 120px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
-// const FormBlock = styled("form")`
-//   width: 411px;
-//   display: flex;
-//   align-items: flex-start;
-//   justify-content: center;
-//   flex-direction: column;
-//   gap: 39px;
-// `;
+const ErrorMessage = styled(Typography)(() => ({
+  color: "red",
+}));
 
 const Paragraph = styled("p")`
   margin-top: -19px;
   & > span {
-    color: #0040ff;
+    color: #30723f;
   }
 `;
-
-// const Loading = styled(CircularProgress)(() => ({
-//   "& > svg": {},
-// }));

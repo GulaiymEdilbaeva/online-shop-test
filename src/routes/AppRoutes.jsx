@@ -5,7 +5,8 @@ import { SignInForm } from "../components/AuthForm/SignInForm";
 import { PrivateAuthRoute } from "./PrivateAuthRoute";
 import { AdminPage } from "../pages/AdminPage";
 
-export const AppRoutes = ({ isAuthorized }) => {
+export const AppRoutes = ({ isAuthorized, role }) => {
+  console.log(role);
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -14,7 +15,7 @@ export const AppRoutes = ({ isAuthorized }) => {
           path="sign-up"
           element={
             <PrivateAuthRoute
-              RouteComponents={<SignUpForm />}
+              RouteComponent={<SignUpForm />}
               fallbackPath="/admin"
               isAuthorized={!isAuthorized}
             />
@@ -24,7 +25,7 @@ export const AppRoutes = ({ isAuthorized }) => {
           path="sign-in"
           element={
             <PrivateAuthRoute
-              RouteComponents={<SignInForm />}
+              RouteComponent={<SignInForm />}
               fallbackPath="/admin"
               isAuthorized={!isAuthorized}
             />
@@ -35,12 +36,12 @@ export const AppRoutes = ({ isAuthorized }) => {
         path="/admin"
         element={
           <PrivateAuthRoute
-            RouteComponents={<AdminPage />}
-            fallbackPath="/sign-in"
-            isAuthorized={!isAuthorized}
+            RouteComponent={<AdminPage />}
+            fallbackPath={"/sign-in"}
+            isAuthorized={isAuthorized}
           />
         }
-      ></Route>
+      />
     </Routes>
   );
 };

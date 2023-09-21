@@ -5,29 +5,26 @@ import { authActions } from "./redux/slices/authSlice";
 import { CircularProgress } from "@mui/material";
 
 function App() {
-  const { isAuthorized, data } = useSelector((state) => state.auth);
+  const { isAuthourizated, data } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (
-      localStorage.getItem("clientData")?.token &&
-      localStorage.getItem("clientData")?.role
-    ) {
-      const storagedData = JSON.parse(localStorage.getItem("clientData"));
+    const storagedData = JSON.parse(localStorage.getItem("clientData"));
+    if (storagedData?.token && storagedData?.role) {
       dispatch(authActions.autoLogin(storagedData));
     }
-    setLoading(false);
-
-    if (loading) {
-      return <CircularProgress />;
-    }
+    // fake loading
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   }, []);
-  return (
-    <>
-      <AppRoutes isAuthorized={isAuthorized} role={data.role} />
-    </>
-  );
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  return <AppRoutes isAuthorized={isAuthourizated} role={data.role} />;
 }
 
 export default App;

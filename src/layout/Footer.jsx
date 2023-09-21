@@ -8,16 +8,14 @@ export const Footer = () => {
           <h2>BRANDNAME</h2>
           <InfoBlock>
             <p>О нас </p>
-            <p>Контакты</p>
+            <p>Контакты </p>
           </InfoBlock>
-
           <InfoBlock>
-            <p>Способы оплаты</p>
-            <p>Условия доставки</p>
+            <p>Способы оплаты </p>
+            <p>Условия доставки </p>
           </InfoBlock>
-
           <InfoBlock>
-            <p>Пользовательское соглашение</p>
+            <p>Пользовательское соглашение </p>
             <p>Политика конфиденциальности</p>
           </InfoBlock>
         </InfoContainer>
@@ -28,9 +26,11 @@ export const Footer = () => {
           <Logo>Onlineshop</Logo>
           <Logo>Onlineshop</Logo>
         </FirstBlock>
-        <SecondBlock>Onlineshop</SecondBlock>
-        <SecondBlock>Onlineshop</SecondBlock>
-        <SecondBlock>Onlineshop</SecondBlock>
+        <SecondBlock>
+          <Logo>Onlineshop</Logo>
+          <Logo>Onlineshop</Logo>
+          <Logo>Onlineshop</Logo>
+        </SecondBlock>
       </LogoBox>
     </FooterStyled>
   );
@@ -45,51 +45,56 @@ const Wrapper = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 2px solid #121314;
-  border-top: 2px solid #121314;
+  border-top: 2px solid #2e2e2e;
 `;
 
 const InfoContainer = styled("div")`
-  max-height: 66px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 66px;
   margin-right: 120px;
   margin-left: 120px;
 `;
+
 const InfoBlock = styled("div")`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-
   & :first-child {
     margin-bottom: 16px;
   }
 `;
+
 const LogoBox = styled("div")`
+  border-top: 4px solid #2e2e2e;
   display: flex;
   margin-top: 20px;
-  border-top: 4px;
+  background-color: red;
+  height: 82px;
 `;
+
 const FirstBlock = styled("div")`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 50%;
   padding-left: 40px;
   background-color: #f2ed72;
-  /* border-right: 2px solid ; */
+  border-right: 2px solid #2e2e2e;
 `;
 
 const SecondBlock = styled("div")`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 50%;
   padding-left: 50px;
   background-color: #30723f;
+  border-left: 2px solid #2e2e2e;
 `;
+
 const Logo = styled("span")`
   font-size: 18px;
   font-weight: 700;

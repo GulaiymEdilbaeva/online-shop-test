@@ -1,14 +1,14 @@
-import { Button, Input } from "@mui/material";
 import { FormWrapper } from "../../layout/FormWrapper";
 import { useFormik } from "formik";
 import { validationAuthSignIn } from "../../helpers/validate/authValidate";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../redux/slices/authSlice";
+import { Input } from "../../UI/Input";
+import { Button } from "../../UI/Button";
 
 export const SignInForm = () => {
   const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
   const submitHandler = () => {
     dispatch(
       signIn({
@@ -18,7 +18,7 @@ export const SignInForm = () => {
     );
   };
 
-  const { values, handleChange, handleSubmit } = useFormik({
+  const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -27,30 +27,33 @@ export const SignInForm = () => {
     validateOnChange: false,
     validationSchema: validationAuthSignIn,
   });
+
   return (
-    <FormWrapper>
+    <FormWrapper onSubmit={handleSubmit}>
       <h2>Вход</h2>
       <Input
         error={Boolean(errors?.email)}
         helperText={errors?.email}
         fullWidth
-        label="Email"
+        label="Почта"
         type="email"
-        value={values.email}
         name="email"
+        value={values.email}
         onChange={handleChange}
       />
       <Input
-        error={Boolean(errors?.email)}
-        helperText={errors?.email}
+        error={Boolean(errors?.password)}
+        helperText={errors?.password}
         fullWidth
         label="Пароль"
-        type="email"
-        value={values.email}
-        name="email"
+        type="password"
+        name="password"
+        value={values.password}
         onChange={handleChange}
       />
-      <Button type="submit" loading>
+
+      <Button type="submit" loading={isLoading}>
+        {/* {isLoading ? <CircularProgress size="1.5rem" /> : "Зарегистрироваться"} */}
         Войти
       </Button>
     </FormWrapper>

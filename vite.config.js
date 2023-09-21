@@ -12,5 +12,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: "/online-shop-test/",
+  // base: "/online-shop-test/",
 });
