@@ -1,10 +1,18 @@
 import { styled } from "@mui/material";
 import { Button } from "../../UI/Button";
+import { useLocation } from "react-router-dom";
 
 export const AdminHeader = () => {
+  const { pathname } = useLocation();
+
+  const titleByPath = {
+    "/admin/female": "Женская",
+    "/admin/male": "Мужская",
+    "/admin/children": "Детская",
+  };
   return (
     <Header>
-      <Title>Женская</Title>
+      <Title>{titleByPath[pathname]}</Title>
       <HeaderButton>+ Добавить</HeaderButton>
     </Header>
   );
@@ -15,6 +23,8 @@ const Header = styled("header")`
   justify-content: space-between;
   padding: 22px 30px 22px 30px;
   border-radius: 10px;
+  margin-bottom: 40px;
+  background-color: #fff;
 `;
 const Title = styled("h1")`
   font-size: 24px;
