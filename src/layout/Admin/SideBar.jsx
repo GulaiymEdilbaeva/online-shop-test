@@ -4,13 +4,10 @@ import { ReactComponent as FemaleIcon } from "../../assets/woman.svg";
 import { ReactComponent as MaleIcon } from "../../assets/man-beard.svg";
 import { ReactComponent as ChildIcon } from "../../assets/child.svg";
 import { Link, useLocation } from "react-router-dom";
+import { isActive } from "../../helpers/global";
 
 export const SideBar = () => {
   const { pathname } = useLocation();
-
-  const isActie = (path) => pathname === `/admin/${path}`;
-
-  console.log(pathname);
   return (
     <Container>
       <Wrapper>
@@ -18,21 +15,21 @@ export const SideBar = () => {
       </Wrapper>
       <List>
         <StyledLink to={"male"}>
-          <Menu active={isActie("male")}>
+          <Menu active={isActive("male", pathname)}>
             <MaleIcon />
             <MenuTitle>Мужская</MenuTitle>
           </Menu>
         </StyledLink>
 
         <StyledLink to={"children"}>
-          <Menu active={isActie("children")}>
+          <Menu active={isActive("children", pathname)}>
             <ChildIcon />
             <MenuTitle>Детская</MenuTitle>
           </Menu>
         </StyledLink>
 
         <StyledLink to={"female"}>
-          <Menu active={isActie("female")}>
+          <Menu active={isActive("female", pathname)}>
             <FemaleIcon />
             <MenuTitle>Женская</MenuTitle>
           </Menu>
@@ -49,7 +46,7 @@ const Container = styled("aside")`
   left: 0;
   top: 0;
   width: 218px;
-  background-color: #2e0de6;
+  background-color: #fff;
   height: 100vh;
 `;
 
@@ -63,7 +60,15 @@ const Menu = styled("li")`
   align-items: center;
   margin-bottom: 12px;
   padding: 12px 28px 12px 18px;
-  background-color: ${(props) => (props.active ? "green" : "none")};
+  background-color: ${(props) => (props.active ? "#e2f7e7" : "none")};
+  & > span {
+    color: ${(props) => (props.active ? "#5A8E65" : "#7E8494")};
+  }
+  & > svg {
+    path {
+      fill: ${(props) => (props.active ? "#5A8E65" : "#7E8494")};
+    }
+  }
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
